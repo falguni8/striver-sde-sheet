@@ -1,0 +1,14 @@
+int Solution::solve(vector<int> &A, int B) {
+    int x=0;
+    map<int,int>mp;
+    int n=A.size();
+    mp[x]++;
+    int c=0;
+    for(int i=0;i<n;i++){
+        x=x^A[i];
+        int y=x^B;
+        c+=mp[y];
+        mp[x]++;
+    }
+    return c;
+}
