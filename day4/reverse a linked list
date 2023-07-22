@@ -1,0 +1,19 @@
+/**
+ListNode*prev,*curr,*nxt;
+
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode* x){
+        if(x==NULL || x->next==NULL){
+            return x;
+        }
+        ListNode* y=reverse(x->next);
+        x->next->next=x;
+        x->next=NULL;
+        return y;
+    }
+    ListNode* reverseList(ListNode* head) {
+        return reverse(head);
+    }
+};
