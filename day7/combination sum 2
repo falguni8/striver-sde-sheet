@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void fun(vector<int>&arr,int i,int t,vector<int>&k,set<vector<int>>&s){
+      if(t==0){
+        sort(k.begin(),k.end());
+        s.insert(k);
+        return ;
+      }
+      if(t<0 || i>=arr.size()){
+        return ;
+      }
+      for(int j=i;j<arr.size();j++){
+        if(j!=i && arr[j]==arr[j-1]){
+          continue;
+        }
+        if(t>=arr[j]){
+          k.push_back(arr[j]);
+          fun(arr,j+1,t-arr[j],k,s);
+          k.pop_back();
+        }
+      }
+
+    }
+    vector<vector<int>> combinationSum2(vector<int>& arr, int target) {
+        set<vector<int>>s;
+        vector<vector<int>>ans;
+        vector<int>k;
+        sort(arr.begin(),arr.end());
+        fun(arr,0,target,k,s);
+        for(auto i:s){
+          ans.push_back(i);
+        }
+        return ans;
+    }
+};
