@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void fun(vector<int>&arr,int i,int t,vector<int>&k,set<vector<int>>&s){
+      if(t==0){
+        s.insert(k);
+        return ;
+      }
+      if(t<0 || i>=arr.size()){
+        return ;
+      }
+      //pick
+      if(arr[i]<=t){
+        k.push_back(arr[i]);
+        fun(arr,i,t-arr[i],k,s);
+        k.pop_back();
+      }
+      fun(arr,i+1,t,k,s);
+    }
+    vector<vector<int>> combinationSum(vector<int>& arr, int target) {
+        set<vector<int>>s;
+        vector<vector<int>>ans;
+        vector<int>k;
+        fun(arr,0,target,k,s);
+        for(auto i:s){
+          ans.push_back(i);
+        }
+        return ans;
+    }
+};
