@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool fun(string &a,int i,int j){
+      if((j-i)==0){
+        return true;
+      }
+      while(i<j){
+        if(a[i]!=a[j]){
+          return false;
+        }
+        i++;
+        j--;
+      }
+      return true;
+    }
+    void fun(set<vector<string>>&ans,string&arr,int n,int i,vector<string> &k){
+        
+        if(i==n){
+          ans.insert(k);
+          return;
+        }
+        for(int j=i;j<n;j++){
+          //pick
+          if(fun(arr,i,j)){
+            k.push_back(arr.substr(i, j-i + 1));
+            fun(ans,arr,n,j+1,k);
+            k.pop_back();
+          }
+        }  
+    }
+    vector<vector<string>> partition(string s) {
+        vector<string>k;
+        set<vector<string>>ans;
+        vector<vector<string>>p;
+        fun(ans,s,s.length(),0,k);
+        for(auto i:ans){
+          p.push_back(i);
+        }
+        return p;
+    }
+};
