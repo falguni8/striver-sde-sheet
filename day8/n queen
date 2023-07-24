@@ -1,0 +1,55 @@
+class Solution {
+public:
+    bool issafe(int i,int j,vector<string>&v,int n){
+      //check up left diagonal i-1,j-1
+      int a=i-1;
+      int b=j-1;
+      while(a>=0 && b>=0){
+        if(v[a][b]=='Q'){
+          return false;
+        }
+        a--;
+        b--;
+      }
+      a=i-1;;
+      b=j-1;
+      //up i,j-1
+      while(a>=0){
+        if(v[a][j]=='Q'){
+          return false;
+        }
+        a--;
+      }
+      a=i-1;
+      b=j+1;
+      //i--,j++;
+      while(b<n && a>=0){
+        if(v[a][b]=='Q'){
+          return false;
+        }
+        b++;
+        a--;
+      }
+      return true;
+    }
+    void fun(vector<vector<string>>&ans,vector<string>&v,int n,int r){
+      if(r==n){
+        ans.push_back(v);
+        return ;
+      }
+        for(int j=0;j<n;j++){
+          if(issafe(r,j,v,n)){
+            v[r][j]='Q';
+            fun(ans,v,n,r+1);
+            v[r][j]='.';
+          }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>ans;
+        string s(n,'.');
+        vector<string>v(n,s);
+        fun(ans,v,n,0);
+        return ans;
+    }
+};
