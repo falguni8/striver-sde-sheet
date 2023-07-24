@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void fun(vector<int>&nums,int i,vector<int>&k,set<vector<int>>&s,vector<int>&vis,int n){
+        if(k.size()==n){
+          s.insert(k);
+          return ;
+        }
+      for(int j=0;j<n;j++){
+        if(vis[j]==-1){
+          k.push_back(nums[j]);
+          vis[j]=1;
+          fun(nums,j+1,k,s,vis,n);
+          vis[j]=-1;
+          k.pop_back();
+        }
+      }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        set<vector<int>>s;
+        vector<int>k;
+        int n=nums.size();
+        vector<int>vis(n,-1);
+        vector<vector<int>>ans;
+        fun(nums,0,k,s,vis,n);
+        for(auto i:s){
+          ans.push_back(i);
+        }
+        return ans;
+    }
+};
