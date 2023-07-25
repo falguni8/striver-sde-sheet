@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int search(vector<int>& A, int target) {
+        int l=0;
+        int n=A.size();
+        int h=n-1;
+        while(l<=h){
+          int m=(l+h)/2;
+          if(A[m]==target){
+            return m;
+          }
+          if(A[l]<=A[m]){
+            if(A[l]<=target && A[m]>=target){
+              h=m-1;
+            }
+            else{
+              l=m+1;
+            }
+          }
+          else{
+            if(A[h]>=target && A[m]<=target){
+              l=m+1;
+            }
+            else{
+              h=m-1;
+            }
+          }
+        }
+        return -1;
+    }
+};
