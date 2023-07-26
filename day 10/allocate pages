@@ -1,0 +1,42 @@
+int Solution::books(vector<int> &A, int B) {
+    int l,h,mx,ans,s;
+    mx=INT_MIN;
+    s=0;
+    
+    int n=A.size();
+    for(int i=0;i<n;i++){
+        s+=A[i];
+        mx=max(mx,A[i]);
+    }
+    l=mx;
+    if(n<B){
+        return -1;
+    }
+    h=s;
+    ans=-1;
+    while(l<=h){
+        int mid=(l+h)/2;
+        int c=1;
+        int page=0;
+        for(int i=0;i<n;i++){
+            if (page + A[i] <= mid) {
+            //add pages to current student
+            page += A[i];
+        }
+        else {
+            //add pages to next student
+            c++;
+            page = A[i];
+        }
+        }
+        if(c<=B){
+            ans=mid;
+            h=mid-1;
+        }
+        else{
+            l=mid+1;
+        }
+    }
+    return l;
+    
+}
