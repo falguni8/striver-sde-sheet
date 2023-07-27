@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool check(stack<char>&stk,char b){
+      if(stk.empty()){
+        return false;
+      }
+      if(b==')' && stk.top()=='('){
+        return true;
+      }
+      if(b==']' && stk.top()=='['){
+        return true;
+      }
+      if(b=='}' && stk.top()=='{'){
+        return true;
+      }
+      return false;
+    }
+    bool isValid(string s) {
+      stack<char>stk;
+      stk.push(s[0]);
+      for(int i=1;i<s.length();i++){
+        if(check(stk,s[i])){
+          //cout<<"H";
+          stk.pop();
+        }
+        else{
+          stk.push(s[i]);
+        }
+      }
+      if(stk.empty()){
+        return true;
+      }
+      return false;
+    }
+};
