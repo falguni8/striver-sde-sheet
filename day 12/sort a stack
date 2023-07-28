@@ -1,0 +1,28 @@
+#include <bits/stdc++.h> 
+//reverse
+void add(stack<int>&stk,int x){
+	if(stk.empty() || stk.top()<=x){
+		stk.push(x);
+		return ;
+	}
+	int y=stk.top();
+	if(y>x){
+		stk.pop();
+		add(stk,x);
+		stk.push(y);
+	}
+}
+void srt(stack<int>&stack){
+	if(stack.empty()){
+		return;
+	}
+	int x=stack.top();
+	stack.pop();
+	srt(stack);
+	add(stack,x);
+}
+void sortStack(stack<int> &stack)
+{
+	// Write your code here
+	srt(stack);
+}
