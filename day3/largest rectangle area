@@ -1,0 +1,47 @@
+#include <vector>
+#include <stack>
+using namespace std;
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        stack<int> stk;
+        int n = heights.size();
+        if (n == 1) {
+            return heights[0];
+        }
+        vector<int> v(n, -1);
+        stk.push(0);
+        for (int i = 1; i < n; i++) {
+            while (!stk.empty() && heights[stk.top()] >= heights[i]) {
+                stk.pop();
+            }
+            if (!stk.empty()) {
+                v[i] = stk.top();
+            }
+            stk.push(i);
+        }
+        
+        stk = stack<int>(); // Clear the stack to reuse it
+        vector<int> v1(n, n);
+        stk.push(n - 1);
+        for (int i = n - 2; i >= 0; i--) {
+            while (!stk.empty() && heights[stk.top()] >= heights[i]) {
+                stk.pop();
+            }
+            if (!stk.empty()) {
+                v1[i] = stk.top();
+            }
+            stk.push(i);
+        }
+        
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            int width = v1[i] - v[i] - 1;
+            int area = heights[i] * width;
+            ans = max(ans, area);
+        }
+        
+        return ans;
+    }
+};
