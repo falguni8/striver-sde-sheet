@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        vector<string>w;
+        for(int i=0;i<s.length();i++){
+          string str;
+          if(s[i]==' '){
+            continue;
+          }
+          while(i<s.length() && s[i]!=' '){
+            str.push_back(s[i]);
+            i++;
+          }
+          w.push_back(str);
+        }
+        string ans;
+        reverse(w.begin(),w.end());
+        for(auto i:w){
+          ans+=i;
+          ans+=' ';
+        }
+        ans.pop_back();
+        return ans;
+    }
+};
