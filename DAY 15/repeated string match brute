@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+
+class Solution {
+public:
+    int repeatedStringMatch(std::string a, std::string b) {
+        int n = a.size();
+        int m = b.size();
+        int repetitions = 1;
+        std::string repeatedA = a;
+
+        while (repeatedA.size() < m) {
+            repeatedA += a;
+            repetitions++;
+        }
+
+        if (repeatedA.find(b)!=-1) {
+            return repetitions;
+        }
+
+        repeatedA += a;
+        repetitions++;
+
+        if (repeatedA.find(b) !=-1) {
+            return repetitions;
+        }
+
+        return -1;
+    }
+};
+
