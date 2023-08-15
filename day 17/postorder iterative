@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if (root == nullptr)
+            return result;
+        
+        stack<TreeNode*> s;
+        TreeNode* prev = nullptr;
+        
+        while (root != nullptr || !s.empty()) {
+            while (root != nullptr) {
+                s.push(root);
+                root = root->left;
+            }
+            
+            TreeNode* topNode = s.top();
+            
+            // Check if the right subtree is null or has been visited.
+            if (topNode->right == nullptr || topNode->right == prev) {
+                result.push_back(topNode->val);
+                s.pop();
+                prev = topNode;
+            } else {
+                root = topNode->right;
+            }
+        }
+        
+        return result;
+    }
+};
